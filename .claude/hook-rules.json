@@ -1,0 +1,31 @@
+{
+  "pre_tool_use_safety": {
+    "trigger": "PreToolUse",
+    "matchers": ["Bash"],
+    "description": "Block dangerous rm -rf commands"
+  },
+  "post_edit_files_ruby_style": {
+    "trigger": "PostToolUse", 
+    "matchers": ["Edit", "MultiEdit", "Write"],
+    "description": "Format Ruby files with rubocop"
+  },
+  "post_edit_files_python_style": {
+    "trigger": "PostToolUse",
+    "matchers": ["Edit", "MultiEdit", "Write"],
+    "description": "Format Python files with ruff"
+  },
+  "post_edit_files_js_ts_style": {
+    "trigger": "PostToolUse", 
+    "matchers": ["Edit", "MultiEdit", "Write"],
+    "description": "Format JS/TS files with prettier"
+  },
+  "post_edit_files_rust_style": {
+    "trigger": "PostToolUse",
+    "matchers": ["Edit", "MultiEdit", "Write"],
+    "description": "Format Rust files with rustfmt"
+  },
+  "pre_compact_memory_save": {
+    "trigger": "PreCompact",
+    "description": "Save technical session summary to Memory Bank before compact"
+  }
+}

@@ -1,0 +1,5 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+This is a project for my own customizations for claude, I will track with git and potentially share it with my friends on github. Goal for this project: 1. figure out a minimal but useful set of custom slash commands 2. figure out a useful set of claude agents for software development, potentially configure a way to have a more general base prompts for those agents and for each project we template some project specific things into their role description 3. some common useful hooks can be switched on/off via slash command and if there is not already make a command to display currently deployed hooks / all available hooks 4. generate a setup script so that my friend can easily install

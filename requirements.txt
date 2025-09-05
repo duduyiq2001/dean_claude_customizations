@@ -1,0 +1,10 @@
+# Core dependencies for Dean's Claude Code customizations
+
+# No external Python dependencies required currently
+# All scripts use only Python standard library modules:
+# - json (built-in)
+# - sys (built-in) 
+# - pathlib (built-in)
+
+# If you want to add additional Python-based hooks or commands,
+# add dependencies here and update setup.sh to install them
