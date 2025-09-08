@@ -1,0 +1,1 @@
+jq -r '"\(.tool_name) - \(.tool_input) - \(.tool_response) // \"No description\")"' >> .claude/bash-command-log.txt

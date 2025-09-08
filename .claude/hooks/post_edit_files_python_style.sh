@@ -20,3 +20,4 @@ fi
 files=("$file_path")
 
 ruff check --fix -- "${files[@]}" || true
+ruff format -- "${files[@]}" || true

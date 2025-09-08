@@ -1,5 +1,18 @@
+---
+description: Add hook to local project settings (.claude/settings.local.json)
+argument-hint: <hook-name>
+allowed-tools: Bash
+---
+
+Add a hook to the current project's local settings (not committed to git).
+
+RUN THIS PYTHON SCRIPT!!!!!!!! AND THEN SHOW ME THE EXACT OUTPUT
+
 #!/usr/bin/env python3
-"""Add hook to .claude/settings.local.json"""
+
+
+"""
+"Add hook to .claude/settings.local.json"
 
 import json
 import sys
@@ -12,21 +25,21 @@ def main():
     
     hook_name = sys.argv[1]
     
-    # Check if hook exists in hooks directory
-    hook_file = Path(".claude/hooks") / f"{hook_name}.sh"
+    # Check if hook exists in global hooks directory
+    hook_file = Path.home() / ".claude/hooks" / f"{hook_name}.sh"
     if not hook_file.exists():
-        print(f"Hook '{hook_name}' not found in .claude/hooks/")
+        print(f"Hook '{hook_name}' not found in ~/.claude/hooks/")
         print("Available hooks:")
-        hooks_dir = Path(".claude/hooks")
+        hooks_dir = Path.home() / ".claude/hooks"
         if hooks_dir.exists():
             for hook in hooks_dir.glob("*.sh"):
                 print(f"  {hook.stem}")
         return 1
     
-    # Load hook rules
-    rules_file = Path(".claude/hook-rules.json")
+    # Load hook rules from global location
+    rules_file = Path.home() / ".claude/hook-rules.json"
     if not rules_file.exists():
-        print("hook-rules.json not found")
+        print("~/.claude/hook-rules.json not found")
         return 1
     
     with open(rules_file) as f:
@@ -85,3 +98,4 @@ def main():
 
 if __name__ == "__main__":
     exit(main())
+"""

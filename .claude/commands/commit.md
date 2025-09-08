@@ -24,7 +24,7 @@ You write a precise Conventional Commit message from **staged** changes.
 - **Subject**: imperative mood, no period, lowercase start
 - **Body**: explain *what* changed (not *why* - that's in the code)
 - **Scope**: optional, use file/module name when clear
-- **Breaking**: add `!` after scope if breaking change
+- **Breaking**: add exclamation mark after scope if breaking change
 
 ### Examples
 ```

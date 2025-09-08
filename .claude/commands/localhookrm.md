@@ -1,5 +1,17 @@
+---
+description: Remove hook from local project settings (.claude/settings.local.json)
+argument-hint: <hook-name>
+allowed-tools: Bash
+---
+
+Remove a hook from the current project's local settings.
+
+RUN THIS PYTHON SCRIPT!!!!!! AND THEN SHOW ME THE EXACT OUTPUT
+
 #!/usr/bin/env python3
-"""Remove hook from .claude/settings.json"""
+
+"""
+"Remove hook from .claude/settings.local.json"
 
 import json
 import sys
@@ -7,14 +19,14 @@ from pathlib import Path
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: projecthookrm.py <hook-name>")
+        print("Usage: localhookrm.py <hook-name>")
         return 1
     
     hook_name = sys.argv[1]
     
-    settings_file = Path(".claude/settings.json")
+    settings_file = Path(".claude/settings.local.json")
     if not settings_file.exists():
-        print("No .claude/settings.json found")
+        print("No .claude/settings.local.json found")
         return 1
     
     # Load settings
@@ -44,7 +56,7 @@ def main():
             break
     
     if not removed:
-        print(f"Hook '{hook_name}' not found in .claude/settings.json")
+        print(f"Hook '{hook_name}' not found in .claude/settings.local.json")
         return 1
     
     # Write back
@@ -53,3 +65,4 @@ def main():
 
 if __name__ == "__main__":
     exit(main())
+"""

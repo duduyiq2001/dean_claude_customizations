@@ -75,7 +75,26 @@ fi
 
 # Copy our customizations
 echo "  Copying customizations to ~/.claude..."
-cp -r .claude/* "$HOME/.claude/"
+
+# Copy directories
+echo "    Copying commands..."
+mkdir -p "$HOME/.claude/commands"
+cp .claude/commands/* "$HOME/.claude/commands/"
+
+echo "    Copying hooks..."
+mkdir -p "$HOME/.claude/hooks"
+cp .claude/hooks/* "$HOME/.claude/hooks/"
+
+echo "    Copying agents..."
+mkdir -p "$HOME/.claude/agents"
+cp .claude/agents/* "$HOME/.claude/agents/" 2>/dev/null || true
+
+# Copy individual files
+echo "    Copying configuration files..."
+cp .claude/CLAUDE.md "$HOME/.claude/" 2>/dev/null || true
+cp .claude/hook-rules.json "$HOME/.claude/" || true
+cp .claude/settings.json "$HOME/.claude/" || true
+[[ -f .claude/settings.json ]] && cp .claude/settings.json "$HOME/.claude/" || true
 
 # Make all Python scripts executable
 chmod +x "$HOME/.claude/commands"/*.py

@@ -1,16 +1,39 @@
 {
   "permissions": {
-  "ask": [
-    "Bash(git push:*)",
-    "Bash(rm -rf:*)",
-    "Bash(docker rmi:*)",
-    "Bash(kubectl apply:*)",
-    "Bash(curl:*)"
-  ],
-  "deny": [
-    "Read(./.env)",
-    "Read(./.env.*)",
-    "Read(./secrets/**)"
-  ]
-}
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(rm -rf:*)",
+      "Bash(docker rmi:*)",
+      "Bash(kubectl apply:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matchers": ["Bash"],
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/pre_tool_use_safety.sh"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/pre_compact_memory_save.sh"
+          }
+        ]
+      }
+    ]
+  }
 }
