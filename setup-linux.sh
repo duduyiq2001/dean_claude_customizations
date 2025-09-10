@@ -121,7 +121,6 @@ cp .claude/hook-rules.json "$HOME/.claude/"
 [[ -f .claude/settings.json ]] && cp .claude/settings.json "$HOME/.claude/" || true
 
 # Make all Python scripts executable
-chmod +x "$HOME/.claude/commands"/*.py
 chmod +x "$HOME/.claude/hooks"/*.sh
 
 # Setup MCP servers
