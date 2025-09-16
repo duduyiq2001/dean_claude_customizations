@@ -126,31 +126,38 @@ chmod +x "$HOME/.claude/hooks"/*.sh
 # Setup MCP servers
 echo "🔌 Setting up MCP servers..."
 
-# Remote HTTP servers with .env file support
-echo "  Setting up remote MCP servers..."
-if [[ -f ".env" ]]; then
-    source .env
-    
-    if [[ -n "$NOTION_API_KEY" ]]; then
-        claude mcp add --transport http --env NOTION_API_KEY="$NOTION_API_KEY" notion https://mcp.notion.com/mcp || echo "  ⚠️  Could not add Notion MCP"
-    fi
-    
-    if [[ -n "$GITHUB_TOKEN" ]]; then  
-        claude mcp add --transport http --env GITHUB_TOKEN="$GITHUB_TOKEN" github https://mcp.github.com/mcp || echo "  ⚠️  Could not add GitHub MCP"
-    fi
-    
-    if [[ -n "$SENTRY_AUTH_TOKEN" ]]; then
-        claude mcp add --transport http --env SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN" sentry https://mcp.sentry.dev/mcp || echo "  ⚠️  Could not add Sentry MCP"
-    fi
-    
-    if [[ -n "$DATADOG_API_KEY" ]]; then
-        claude mcp add --transport http --env DATADOG_API_KEY="$DATADOG_API_KEY" datadog https://mcp.datadog.com/mcp || echo "  ⚠️  Could not add DataDog MCP"
-    fi
+# Add MCP setup function to shell profile
+echo "🐚 Adding MCP setup function to shell profile..."
+
+# Detect shell and set appropriate profile file
+if [[ "$SHELL" =~ zsh ]]; then
+    PROFILE_FILE="$HOME/.zshrc"
+elif [[ "$SHELL" =~ bash ]]; then
+    PROFILE_FILE="$HOME/.bashrc"
+else
+    echo "  ⚠️  Unknown shell, defaulting to ~/.zshrc"
+    PROFILE_FILE="$HOME/.zshrc"
 fi
 
-# Always add these (no API key required)
-claude mcp add --transport http netlify https://netlify-mcp.netlify.app/mcp || echo "  ⚠️  Could not add Netlify MCP"
-claude mcp add --transport http vercel https://mcp.vercel.com/ || echo "  ⚠️  Could not add Vercel MCP"
+# Add the function to the profile if it doesn't exist
+if ! grep -q "setup-mcp()" "$PROFILE_FILE" 2>/dev/null; then
+    echo "  Adding setup-mcp function to $PROFILE_FILE..."
+    cat >> "$PROFILE_FILE" << 'EOF'
+
+# Claude Code MCP setup function
+setup-mcp() {
+    echo "🔌 Adding common MCP servers to current project..."
+    claude mcp add --transport http notion https://mcp.notion.com/mcp
+    claude mcp add --transport http github https://mcp.github.com/mcp
+    claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
+    claude mcp add --transport sse atlassian https://mcp.atlassian.com/v1/sse
+    echo "✅ Added common MCP servers. Run 'claude /mcp' to see available servers"
+}
+EOF
+    echo "  ✅ Added setup-mcp function"
+else
+    echo "  ✅ setup-mcp function already exists"
+fi
 
 echo ""
 echo "✅ Setup complete!"
